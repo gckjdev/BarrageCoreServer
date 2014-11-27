@@ -1,0 +1,17 @@
+/target/
+/.classpath
+/.project
+/logs/
+/upload/
+/20121008/
+deploy.sh
+/20120713/
+/20120720/
+/20130219/
+/20130227/
+/20130228/
+/*.xml.bak
+/*.iml
+run_traffic_api_server.sh
+*.log
+.idea/
