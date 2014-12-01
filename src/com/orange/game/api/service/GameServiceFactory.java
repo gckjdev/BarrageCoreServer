@@ -6,6 +6,7 @@ import com.orange.common.log.ServerLog;
 import com.orange.game.api.service.bbs.*;
 import com.orange.game.api.service.board.*;
 import com.orange.game.api.service.bulletin.GetBulletinService;
+import com.orange.game.api.barrage.common.CommonDataRequestService;
 import com.orange.game.api.service.contest.*;
 import com.orange.game.api.service.game.ClearUserGameStatusService;
 import com.orange.game.api.service.group.group.*;
@@ -28,7 +29,6 @@ import com.orange.game.api.service.wall.GetUserWallListService;
 import com.orange.game.api.service.wall.GetUserWallService;
 import com.orange.game.api.service.wall.UpdateUserWallService;
 import com.orange.game.constants.ServiceConstant;
-import com.orange.game.model.service.push.BroadPushService;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -772,7 +772,15 @@ public class GameServiceFactory extends CommonServiceFactory {
             Class<? extends CommonGameService> getHandler() {
                 return RecreateBBSBoardPostService.class;
             }
+        },
+
+        COMMON_DATA_REQUEST(ServiceConstant.METHOD_COMMON_DATA_REQUEST){
+            Class<? extends CommonGameService> getHandler() {
+                return CommonDataRequestService.class;
+            }
         }
+
+
 
         ;
         private static Map<String, Class<? extends CommonGameService>> serviceTable = new HashMap<String, Class<? extends CommonGameService>>();

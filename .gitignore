@@ -1,3 +1,6 @@
+.DS_Store
+BarrageCoreServer.ipr
+BarrageCoreServer.iws
 /target/
 /.classpath
 /.project
