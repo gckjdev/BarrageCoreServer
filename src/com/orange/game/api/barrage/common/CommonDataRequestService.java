@@ -48,11 +48,15 @@ public class CommonDataRequestService extends CommonGameService {
             // this is for prehandling check
         }
 
+        log.info("[RECV] request = "+dataRequest.toString());
+
         MessageProtos.PBDataResponse.Builder responseBuilder = MessageProtos.PBDataResponse.newBuilder();
         responseBuilder.setRequestId(dataRequest.getRequestId());
         responseBuilder.setResultCode(0);
         MessageProtos.PBDataResponse response = responseBuilder.build();
+
         log.info("[SEND] response = "+response.toString());
+
         byteData = response.toByteArray();
     }
 }
