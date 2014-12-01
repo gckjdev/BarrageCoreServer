@@ -82,18 +82,18 @@ public class BarrageCoreServer extends CommonApiServer {
 //        value = IntegerUtil.getUnsignedInt(intValue2);
 //        System.out.println("longValue="+value);
 
-        BlackUserService.getInstance().load(mongoClient);
-    	
-    	XiaojiFactory.getInstance();
-    	
-    	FeedProcessor.getInstance().setMongoDBClient(mongoClient);
-    	HotFeedManagerFactory.setMongoDBClient(mongoClient);    	
-    	FeedManager.setMongoDBClient(mongoClient);
-    	
-    	// start to fetch hot feed firstly
-    	HotFeedManagerFactory.getHotFeedManager();
-    	Runtime.getRuntime().addShutdownHook(new Thread() { 
-			public void run() { 
+//        BlackUserService.getInstance().load(mongoClient);
+//
+//    	XiaojiFactory.getInstance();
+//
+//    	FeedProcessor.getInstance().setMongoDBClient(mongoClient);
+//    	HotFeedManagerFactory.setMongoDBClient(mongoClient);
+//    	FeedManager.setMongoDBClient(mongoClient);
+//
+//    	// start to fetch hot feed firstly
+//    	HotFeedManagerFactory.getHotFeedManager();
+    	Runtime.getRuntime().addShutdownHook(new Thread() {
+			public void run() {
 				log.info("===================== SHUTDOWN HOOK CATCH =====================");
 
                 DBService.getInstance().shutdown();
@@ -109,19 +109,19 @@ public class BarrageCoreServer extends CommonApiServer {
         // test
 //        GroupManager.testAllGroupsFeeMonthly();
 
-        IndexMonitorManager.getInstance().resetOngoingIndex();
+//        IndexMonitorManager.getInstance().resetOngoingIndex();
 
 //    	TopUserDataGenerator.createTopUserData();
 
         // trigger timer to calculate guess contest award.
-        AwardManager.getInstance();
-        ContestService.getInstance();
+//        AwardManager.getInstance();
+//        ContestService.getInstance();
 
-        OpusService.getInstance().startDailyTopRankService(XiaojiFactory.getInstance().getDraw(), "画画");
-        OpusService.getInstance().startDailyAwardService(XiaojiFactory.getInstance().getDraw());
+//        OpusService.getInstance().startDailyTopRankService(XiaojiFactory.getInstance().getDraw(), "画画");
+//        OpusService.getInstance().startDailyAwardService(XiaojiFactory.getInstance().getDraw());
 
 		// This code is to initiate the listener.
-		ServerMonitor.getInstance().start();
+//		ServerMonitor.getInstance().start();
 
         BarrageCoreServer server = new BarrageCoreServer();
 		server.startServer();
