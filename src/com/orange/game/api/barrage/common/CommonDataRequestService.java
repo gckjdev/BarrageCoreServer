@@ -1,9 +1,8 @@
 package com.orange.game.api.barrage.common;
 
-import com.google.protobuf.InvalidProtocolBufferException;
-import com.orange.game.api.barrage.service.LoginUserService;
+import com.orange.game.api.barrage.service.user.LoginUserService;
+import com.orange.game.api.barrage.service.user.RegisterUserService;
 import com.orange.game.api.service.CommonGameService;
-import com.orange.game.constants.ErrorCode;
 import com.orange.protocol.message.ErrorProtos;
 import com.orange.protocol.message.MessageProtos;
 
@@ -14,6 +13,19 @@ import java.io.IOException;
  * Created by pipi on 14/12/1.
  */
 public class CommonDataRequestService extends CommonGameService {
+
+    // please add class/sevice mapping here
+    private CommonBarrageService getService(int type){
+        switch (type){
+            case MessageProtos.PBMessageType.MESSAGE_LOGIN_USER_VALUE:
+                return LoginUserService.getInstance();
+
+            case MessageProtos.PBMessageType.MESSAGE_REGISTER_USER_VALUE:
+                return RegisterUserService.getInstance();
+        }
+
+        return null;
+    }
 
     byte[] data;
     MessageProtos.PBDataRequest dataRequest;
@@ -74,15 +86,6 @@ public class CommonDataRequestService extends CommonGameService {
         MessageProtos.PBDataResponse response = responseBuilder.build();
         log.info("[SEND] response = "+response.toString());
         byteData = response.toByteArray();
-    }
-
-    private CommonBarrageService getService(int type){
-        switch (type){
-            case MessageProtos.PBLoginType.LOGIN_XIAOJI_VALUE:
-                return LoginUserService.getInstance();
-        }
-
-        return null;
     }
 
     private void processBarrageRequest(MessageProtos.PBDataRequest dataRequest, MessageProtos.PBDataResponse.Builder responseBuilder) {

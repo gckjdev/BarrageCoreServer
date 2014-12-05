@@ -1,4 +1,4 @@
-package com.orange.game.api.barrage.service;
+package com.orange.game.api.barrage.service.user;
 
 import com.orange.barrage.service.user.LoginService;
 import com.orange.game.api.barrage.common.CommonBarrageService;
@@ -38,7 +38,6 @@ public class LoginUserService extends CommonBarrageService {
             case MessageProtos.PBLoginType.LOGIN_EMAIL_VALUE:
                 resultCode = LoginService.getInstance().loginByEmail(req.getEmail(), req.getPassword(), rspBuilder);
                 break;
-
         }
 
         responseBuilder.setResultCode(resultCode);
