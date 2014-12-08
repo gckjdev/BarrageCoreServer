@@ -1,6 +1,7 @@
 package com.orange.game.api;
 
 import com.mongodb.BasicDBObject;
+import com.orange.barrage.service.yun.qiniu.QiuNiuService;
 import com.orange.common.api.CommonApiServer;
 import com.orange.common.api.service.ServiceHandler;
 import com.orange.common.mongodb.MongoDBClient;
@@ -122,6 +123,8 @@ public class BarrageCoreServer extends CommonApiServer {
 
 		// This code is to initiate the listener.
 //		ServerMonitor.getInstance().start();
+
+//        QiuNiuService.getInstance().getUpToken();
 
         BarrageCoreServer server = new BarrageCoreServer();
 		server.startServer();
