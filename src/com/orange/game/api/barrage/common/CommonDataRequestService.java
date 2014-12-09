@@ -29,7 +29,7 @@ public class CommonDataRequestService extends CommonGameService {
             case MessageProtos.PBMessageType.MESSAGE_CREATE_FEED_VALUE:
                 return CreateFeedService.getInstance();
 
-            case MessageProtos.PBMessageType.MESSAGE_GET_FEED_VALUE:
+            case MessageProtos.PBMessageType.MESSAGE_GET_USER_TIMELINE_FEED_VALUE:
                 return GetFeedListService.getInstance();
 
             case MessageProtos.PBMessageType.MESSAGE_REPLY_FEED_VALUE:
