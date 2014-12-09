@@ -4,6 +4,7 @@ import com.mongodb.BasicDBObject;
 import com.orange.barrage.service.yun.qiniu.QiuNiuService;
 import com.orange.common.api.CommonApiServer;
 import com.orange.common.api.service.ServiceHandler;
+import com.orange.common.cassandra.CassandraClient;
 import com.orange.common.mongodb.MongoDBClient;
 import com.orange.common.redis.RedisClient;
 import com.orange.common.service.BlackUserService;
@@ -73,63 +74,37 @@ public class BarrageCoreServer extends CommonApiServer {
 	
     public static void main(String[] args) throws Exception{
 
-//        BasicDBObject obj = new BasicDBObject();
-//        long value = 4294967295l;
-//        obj.put("long", value);
-//        int intValue = DBObjectUtil.getInt(obj, "long");
-//        System.out.println("intValue="+intValue);
-//
-//        int intValue2 = -1;
-//        value = IntegerUtil.getUnsignedInt(intValue2);
-//        System.out.println("longValue="+value);
+        final BarrageCoreServer server = new BarrageCoreServer();
 
-//        BlackUserService.getInstance().load(mongoClient);
-//
-//    	XiaojiFactory.getInstance();
-//
-//    	FeedProcessor.getInstance().setMongoDBClient(mongoClient);
-//    	HotFeedManagerFactory.setMongoDBClient(mongoClient);
-//    	FeedManager.setMongoDBClient(mongoClient);
-//
-//    	// start to fetch hot feed firstly
-//    	HotFeedManagerFactory.getHotFeedManager();
     	Runtime.getRuntime().addShutdownHook(new Thread() {
 			public void run() {
-				log.info("===================== SHUTDOWN HOOK CATCH =====================");
+
+                try {
+                    server.stop();
+                } catch (Exception e) {
+                    log.error("catch exception while stop JETTY server, exception = " + e.toString(), e);
+                }
+
+                log.info("===================== SHUTDOWN HOOK CATCH =====================");
+
 
                 DBService.getInstance().shutdown();
-
-				//HotFeedManagerFactory.getHotFeedManager().cacheHotFeedList();
-
 				RedisClient.getInstance().destroyPool();
+
 				log.info("===================== SHUTDOWN HOOK COMPLETE =====================");
 			} 
 		});
 
-
-        // test
-//        GroupManager.testAllGroupsFeeMonthly();
-
 //        IndexMonitorManager.getInstance().resetOngoingIndex();
-
-//    	TopUserDataGenerator.createTopUserData();
-
-        // trigger timer to calculate guess contest award.
-//        AwardManager.getInstance();
-//        ContestService.getInstance();
-
-//        OpusService.getInstance().startDailyTopRankService(XiaojiFactory.getInstance().getDraw(), "画画");
-//        OpusService.getInstance().startDailyAwardService(XiaojiFactory.getInstance().getDraw());
 
 		// This code is to initiate the listener.
 //		ServerMonitor.getInstance().start();
 
 //        QiuNiuService.getInstance().getUpToken();
 
-        BarrageCoreServer server = new BarrageCoreServer();
 		server.startServer();
     }
 
-    }
+}
 
 

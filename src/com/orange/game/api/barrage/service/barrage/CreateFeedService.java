@@ -12,6 +12,15 @@ import com.orange.protocol.message.MessageProtos;
  */
 public class CreateFeedService extends CommonBarrageService {
 
+    private static CreateFeedService ourInstance = new CreateFeedService();
+
+    public static CreateFeedService getInstance() {
+        return ourInstance;
+    }
+
+    private CreateFeedService() {
+    }
+
     @Override
     public boolean validateRequest(MessageProtos.PBDataRequest dataRequest, MessageProtos.PBDataResponse.Builder responseBuilder) {
         return true;

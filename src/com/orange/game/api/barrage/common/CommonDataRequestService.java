@@ -1,5 +1,8 @@
 package com.orange.game.api.barrage.common;
 
+import com.orange.game.api.barrage.service.barrage.CreateFeedService;
+import com.orange.game.api.barrage.service.barrage.GetFeedListService;
+import com.orange.game.api.barrage.service.barrage.ReplyFeedService;
 import com.orange.game.api.barrage.service.user.LoginUserService;
 import com.orange.game.api.barrage.service.user.RegisterUserService;
 import com.orange.game.api.service.CommonGameService;
@@ -22,6 +25,16 @@ public class CommonDataRequestService extends CommonGameService {
 
             case MessageProtos.PBMessageType.MESSAGE_REGISTER_USER_VALUE:
                 return RegisterUserService.getInstance();
+
+            case MessageProtos.PBMessageType.MESSAGE_CREATE_FEED_VALUE:
+                return CreateFeedService.getInstance();
+
+            case MessageProtos.PBMessageType.MESSAGE_GET_FEED_VALUE:
+                return GetFeedListService.getInstance();
+
+            case MessageProtos.PBMessageType.MESSAGE_REPLY_FEED_VALUE:
+                return ReplyFeedService.getInstance();
+
         }
 
         return null;
