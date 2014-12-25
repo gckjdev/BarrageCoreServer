@@ -5,6 +5,11 @@ import com.orange.game.api.barrage.service.barrage.GetFeedListService;
 import com.orange.game.api.barrage.service.barrage.ReplyFeedService;
 import com.orange.game.api.barrage.service.user.LoginUserService;
 import com.orange.game.api.barrage.service.user.RegisterUserService;
+import com.orange.game.api.barrage.service.user.UpdateUserInfoService;
+import com.orange.game.api.barrage.service.user.VerifyInviteCodeService;
+import com.orange.game.api.barrage.service.user.friend.AddUserFriendService;
+import com.orange.game.api.barrage.service.user.friend.GetUserFriendListService;
+import com.orange.game.api.barrage.service.user.friend.ProcessUserFriendService;
 import com.orange.game.api.service.CommonGameService;
 import com.orange.protocol.message.ErrorProtos;
 import com.orange.protocol.message.MessageProtos;
@@ -26,6 +31,9 @@ public class CommonDataRequestService extends CommonGameService {
             case MessageProtos.PBMessageType.MESSAGE_REGISTER_USER_VALUE:
                 return RegisterUserService.getInstance();
 
+            case MessageProtos.PBMessageType.MESSAGE_UPDATE_USER_INFO_VALUE:
+                return UpdateUserInfoService.getInstance();
+
             case MessageProtos.PBMessageType.MESSAGE_CREATE_FEED_VALUE:
                 return CreateFeedService.getInstance();
 
@@ -35,8 +43,23 @@ public class CommonDataRequestService extends CommonGameService {
             case MessageProtos.PBMessageType.MESSAGE_REPLY_FEED_VALUE:
                 return ReplyFeedService.getInstance();
 
+            case MessageProtos.PBMessageType.MESSAGE_VERIFY_INVITE_CODE_VALUE:
+                return VerifyInviteCodeService.getInstance();
+
+            case MessageProtos.PBMessageType.MESSAGE_GET_USER_FRIEND_LIST_VALUE:
+                return GetUserFriendListService.getInstance();
+
+            case MessageProtos.PBMessageType.MESSAGE_ADD_USER_FRIEND_VALUE:
+                return AddUserFriendService.getInstance();
+
+            case MessageProtos.PBMessageType.MESSAGE_PROCESS_USER_FRIEND_VALUE:
+                return ProcessUserFriendService.getInstance();
+
+
+
         }
 
+        log.warn("<getService> but unknown message type "+type+" received");
         return null;
     }
 

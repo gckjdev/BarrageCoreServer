@@ -45,18 +45,22 @@ public class GetFeedListService extends CommonBarrageService {
         // convert feed list
         List<BarrageProtos.PBFeed> pbFeedList = new ArrayList<BarrageProtos.PBFeed>();
         for (Feed feed : list){
-            BasicDBObject obj = (BasicDBObject)feed.getDbObject();
-            obj.remove("_id");
-            String json = JSON.serialize(obj);
-            log.info("feed json = "+json);
-            BarrageProtos.PBFeed.Builder builder = BarrageProtos.PBFeed.newBuilder();
-            try {
-                JsonFormat.merge(json, builder);
-                BarrageProtos.PBFeed pbFeed = builder.build();
-                pbFeedList.add(pbFeed);
-            } catch (JsonFormat.ParseException e) {
-                log.error("catch exception while convert pb feed, exception="+e.toString(), e);
-            }
+
+            BarrageProtos.PBFeed pbFeed = feed.toProtoBufModel();
+            pbFeedList.add(pbFeed);
+
+//            BasicDBObject obj = (BasicDBObject)feed.getDbObject();
+//            obj.remove("_id");
+//            String json = JSON.serialize(obj);
+//            log.info("feed json = "+json);
+//            BarrageProtos.PBFeed.Builder builder = BarrageProtos.PBFeed.newBuilder();
+//            try {
+//                JsonFormat.merge(json, builder);
+//                BarrageProtos.PBFeed pbFeed = builder.build();
+//                pbFeedList.add(pbFeed);
+//            } catch (JsonFormat.ParseException e) {
+//                log.error("catch exception while convert pb feed, exception="+e.toString(), e);
+//            }
         }
 
         MessageProtos.PBGetUserTimelineFeedResponse.Builder rspBuilder = MessageProtos.PBGetUserTimelineFeedResponse.newBuilder();
