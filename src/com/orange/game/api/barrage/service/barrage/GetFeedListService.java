@@ -7,6 +7,7 @@ import com.orange.barrage.model.feed.Feed;
 import com.orange.barrage.model.feed.UserTimelineFeedManager;
 import com.orange.barrage.service.feed.FeedService;
 import com.orange.game.api.barrage.common.CommonBarrageService;
+import com.orange.game.model.dao.CommonData;
 import com.orange.network.game.protocol.model.DrawProtos;
 import com.orange.protocol.message.BarrageProtos;
 import com.orange.protocol.message.MessageProtos;
@@ -33,6 +34,8 @@ public class GetFeedListService extends CommonBarrageService {
         return true;
     }
 
+
+
     @Override
     public void handleRequest(MessageProtos.PBDataRequest dataRequest, MessageProtos.PBDataResponse.Builder responseBuilder) {
 
@@ -40,36 +43,20 @@ public class GetFeedListService extends CommonBarrageService {
         String userId = dataRequest.getUserId();
         String offsetFeedId = req.getOffsetFeedId();
         int limit = req.getLimit();
+
+        // get data
         List<Feed> list = UserTimelineFeedManager.getInstance().getUserTimeline(userId, offsetFeedId, limit, true);
 
-        // convert feed list
-        List<BarrageProtos.PBFeed> pbFeedList = new ArrayList<BarrageProtos.PBFeed>();
-        for (Feed feed : list){
+        // convert data to pb list
+        List<BarrageProtos.PBFeed> pbFeedList = CommonData.listToPB(list, null);
 
-            BarrageProtos.PBFeed pbFeed = feed.toProtoBufModel();
-            pbFeedList.add(pbFeed);
-
-//            BasicDBObject obj = (BasicDBObject)feed.getDbObject();
-//            obj.remove("_id");
-//            String json = JSON.serialize(obj);
-//            log.info("feed json = "+json);
-//            BarrageProtos.PBFeed.Builder builder = BarrageProtos.PBFeed.newBuilder();
-//            try {
-//                JsonFormat.merge(json, builder);
-//                BarrageProtos.PBFeed pbFeed = builder.build();
-//                pbFeedList.add(pbFeed);
-//            } catch (JsonFormat.ParseException e) {
-//                log.error("catch exception while convert pb feed, exception="+e.toString(), e);
-//            }
-        }
-
+        // set response
         MessageProtos.PBGetUserTimelineFeedResponse.Builder rspBuilder = MessageProtos.PBGetUserTimelineFeedResponse.newBuilder();
         if (list != null){
             rspBuilder.addAllFeeds(pbFeedList);
         }
 
         MessageProtos.PBGetUserTimelineFeedResponse rsp = rspBuilder.build();
-
         responseBuilder.setResultCode(0);
         responseBuilder.setGetUserTimelineFeedResponse(rsp);
     }
