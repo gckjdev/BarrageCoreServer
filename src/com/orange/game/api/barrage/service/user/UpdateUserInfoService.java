@@ -19,7 +19,7 @@ public class UpdateUserInfoService extends CommonBarrageService {
 
     @Override
     public boolean validateRequest(MessageProtos.PBDataRequest dataRequest, MessageProtos.PBDataResponse.Builder responseBuilder) {
-        return false;
+        return true;
     }
 
     @Override
