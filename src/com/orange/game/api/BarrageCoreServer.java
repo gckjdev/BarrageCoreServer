@@ -1,6 +1,7 @@
 package com.orange.game.api;
 
 import com.mongodb.BasicDBObject;
+import com.orange.barrage.model.user.InviteCodeManager;
 import com.orange.barrage.service.yun.qiniu.QiuNiuService;
 import com.orange.common.api.CommonApiServer;
 import com.orange.common.api.service.ServiceHandler;
@@ -94,6 +95,8 @@ public class BarrageCoreServer extends CommonApiServer {
 				log.info("===================== SHUTDOWN HOOK COMPLETE =====================");
 			} 
 		});
+
+        InviteCodeManager.getInstance().testMe();
 
 //        IndexMonitorManager.getInstance().resetOngoingIndex();
 
