@@ -37,10 +37,11 @@ public class RegisterUserService  extends CommonBarrageService {
 
         int resultCode = 0;
         String inviteCode = req.getInviteCode();
-        if (inviteCode != null){
+        if (req.hasInviteCode()){
             resultCode = InviteCodeManager.getInstance().checkInviteCode(inviteCode);
             if (resultCode != 0){
                 // check invite code failure, return
+                responseBuilder.setResultCode(resultCode);
                 return;
             }
         }
