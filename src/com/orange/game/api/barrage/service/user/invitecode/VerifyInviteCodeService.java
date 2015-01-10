@@ -1,4 +1,4 @@
-package com.orange.game.api.barrage.service.user;
+package com.orange.game.api.barrage.service.user.invitecode;
 
 import com.orange.barrage.service.user.InviteCodeService;
 import com.orange.game.api.barrage.common.CommonBarrageService;

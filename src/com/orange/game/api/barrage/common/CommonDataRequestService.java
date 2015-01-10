@@ -6,7 +6,8 @@ import com.orange.game.api.barrage.service.barrage.ReplyFeedService;
 import com.orange.game.api.barrage.service.user.LoginUserService;
 import com.orange.game.api.barrage.service.user.RegisterUserService;
 import com.orange.game.api.barrage.service.user.UpdateUserInfoService;
-import com.orange.game.api.barrage.service.user.VerifyInviteCodeService;
+import com.orange.game.api.barrage.service.user.invitecode.GetNewInviteCodeService;
+import com.orange.game.api.barrage.service.user.invitecode.VerifyInviteCodeService;
 import com.orange.game.api.barrage.service.user.friend.AddUserFriendService;
 import com.orange.game.api.barrage.service.user.friend.GetUserFriendListService;
 import com.orange.game.api.barrage.service.user.friend.ProcessUserFriendService;
@@ -46,6 +47,9 @@ public class CommonDataRequestService extends CommonGameService {
             case MessageProtos.PBMessageType.MESSAGE_VERIFY_INVITE_CODE_VALUE:
                 return VerifyInviteCodeService.getInstance();
 
+            case MessageProtos.PBMessageType.MESSAGE_GET_NEW_INVITE_CODE_VALUE:
+                return GetNewInviteCodeService.getInstance();
+
             case MessageProtos.PBMessageType.MESSAGE_GET_USER_FRIEND_LIST_VALUE:
                 return GetUserFriendListService.getInstance();
 
@@ -54,8 +58,6 @@ public class CommonDataRequestService extends CommonGameService {
 
             case MessageProtos.PBMessageType.MESSAGE_PROCESS_USER_FRIEND_VALUE:
                 return ProcessUserFriendService.getInstance();
-
-
 
         }
 
