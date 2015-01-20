@@ -36,7 +36,11 @@ public class GetUserFriendListService extends CommonBarrageService {
         List<UserProtos.PBUser> pbUserList = User.listToPB(friendList, null);
 
         MessageProtos.PBGetUserFriendListResponse.Builder builder = MessageProtos.PBGetUserFriendListResponse.newBuilder();
-        builder.addAllFriends(pbUserList);
+        UserProtos.PBUserFriendList.Builder friendListBuilder = UserProtos.PBUserFriendList.newBuilder();
+        if (pbUserList != null){
+            friendListBuilder.addAllFriends(pbUserList);
+        }
+        builder.setFriends(friendListBuilder.build());
 
         responseBuilder.setResultCode(0);
         responseBuilder.setGetUserFriendListResponse(builder.build());
