@@ -11,6 +11,9 @@ import com.orange.game.api.barrage.service.user.invitecode.VerifyInviteCodeServi
 import com.orange.game.api.barrage.service.user.friend.AddUserFriendService;
 import com.orange.game.api.barrage.service.user.friend.GetUserFriendListService;
 import com.orange.game.api.barrage.service.user.friend.ProcessUserFriendService;
+import com.orange.game.api.barrage.service.user.tag.AddUserTagService;
+import com.orange.game.api.barrage.service.user.tag.DeleteUserTagService;
+import com.orange.game.api.barrage.service.user.tag.GetUserTagListService;
 import com.orange.game.api.service.CommonGameService;
 import com.orange.protocol.message.ErrorProtos;
 import com.orange.protocol.message.MessageProtos;
@@ -59,6 +62,14 @@ public class CommonDataRequestService extends CommonGameService {
             case MessageProtos.PBMessageType.MESSAGE_PROCESS_USER_FRIEND_VALUE:
                 return ProcessUserFriendService.getInstance();
 
+            case MessageProtos.PBMessageType.MESSAGE_ADD_USER_TAG_VALUE:
+                return AddUserTagService.getInstance();
+
+            case MessageProtos.PBMessageType.MESSAGE_DELETE_USER_TAG_VALUE:
+                return DeleteUserTagService.getInstance();
+
+            case MessageProtos.PBMessageType.MESSAGE_GET_USER_TAG_LIST_VALUE:
+                return GetUserTagListService.getInstance();
         }
 
         log.warn("<getService> but unknown message type "+type+" received");
