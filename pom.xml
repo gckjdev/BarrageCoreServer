@@ -230,8 +230,9 @@
 	                    <configuration>
 	                        <source>1.7</source>
 	                        <target>1.7</target>
-				<compilerArgument>-XDignore.symbol.file</compilerArgument>
-	                    </configuration>
+				            <compilerArgument>-XDignore.symbol.file</compilerArgument>
+                            <encoding>UTF8</encoding>
+                        </configuration>
                     </plugin>    
 		    
 		    
