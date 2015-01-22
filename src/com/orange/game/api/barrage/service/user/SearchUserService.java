@@ -1,7 +1,8 @@
 package com.orange.game.api.barrage.service.user;
 
+import com.orange.barrage.service.user.FriendService;
+import com.orange.barrage.service.user.SearchService;
 import com.orange.game.api.barrage.common.CommonBarrageService;
-import com.orange.game.model.service.user.UserService;
 import com.orange.protocol.message.MessageProtos;
 
 /**
@@ -28,10 +29,13 @@ public class SearchUserService extends CommonBarrageService {
 
         MessageProtos.PBSearchUserRequest req = dataRequest.getSearchUserRequest();
         String searchKey = req.getKeyword();
+        String userId = dataRequest.getUserId();
+        int offset = req.getOffset();
+        int limit = req.getLimit();
 
         MessageProtos.PBSearchUserResponse.Builder builder = MessageProtos.PBSearchUserResponse.newBuilder();
 
-        int resultCode = UserService.getInstance().searchUserByKey(searchKey, builder);
+        int resultCode = SearchService.getInstance().searchUserByKey(userId, searchKey, offset, limit, builder);
 
         MessageProtos.PBSearchUserResponse rsp = builder.build();
         responseBuilder.setResultCode(resultCode);
