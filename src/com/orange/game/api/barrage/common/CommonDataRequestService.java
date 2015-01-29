@@ -159,6 +159,7 @@ public class CommonDataRequestService extends CommonGameService {
         }catch (Exception e){
             responseBuilder.setRequestId(dataRequest.getRequestId());
             responseBuilder.setResultCode(ErrorProtos.PBError.ERROR_SERVICE_CATCH_EXCEPTION_VALUE);
+            log.error("<processBarrageRequest> catch exception="+e.toString(), e);
             return;
         }
     }

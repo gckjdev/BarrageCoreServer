@@ -1,5 +1,6 @@
 package com.orange.game.api.barrage.service.user.friend;
 
+import com.orange.barrage.constant.BarrageConstants;
 import com.orange.barrage.model.user.FriendManager;
 import com.orange.barrage.model.user.FriendRequestManager;
 import com.orange.barrage.model.user.User;
@@ -8,7 +9,9 @@ import com.orange.protocol.message.MessageProtos;
 import com.orange.protocol.message.UserProtos;
 
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by pipi on 14/12/24.
@@ -49,12 +52,34 @@ public class GetUserFriendListService extends CommonBarrageService {
             friendList = FriendManager.getInstance().getFriendList(userId);
             pbFriendList = User.listToPB(friendList, null);
         }
-        else if(type == MessageProtos.PBGetUserFriendListType.TYPE_ALL_VALUE
+
+        Set<String> removeFields = new HashSet<String>();
+        removeFields.add(BarrageConstants.F_FRIEND_ID);
+
+        if(type == MessageProtos.PBGetUserFriendListType.TYPE_ALL_VALUE
                 || type == MessageProtos.PBGetUserFriendListType.TYPE_FRIEND_LIST_VALUE){
 
             requestFriendList = FriendRequestManager.getInstance().getRequestList(userId);
+            if (type == MessageProtos.PBGetUserFriendListType.TYPE_ALL_VALUE &&
+                    requestFriendList != null){
+
+                // remove accept or reject items
+                Set<User> removeSet = new HashSet<User>();
+                for (User user : requestFriendList){
+                    if (user.getAddStatus() != UserProtos.FriendAddStatusType.REQ_WAIT_ACCEPT_VALUE){
+                        removeSet.add(user);
+                    }
+                }
+
+                if (removeSet.size() > 0) {
+                    requestFriendList.removeAll(removeSet);
+                }
+            }
+
+
+
             requestNewCount = (int)FriendRequestManager.getInstance().getUnreadCount(userId);
-            pbRequestFriendList = User.listToPB(friendList, null);
+            pbRequestFriendList = User.listToPB(requestFriendList, removeFields);
         }
 
         MessageProtos.PBGetUserFriendListResponse.Builder builder = MessageProtos.PBGetUserFriendListResponse.newBuilder();
@@ -62,6 +87,7 @@ public class GetUserFriendListService extends CommonBarrageService {
         if (pbFriendList != null){
             friendListBuilder.addAllFriends(pbFriendList);
         }
+
         if (pbRequestFriendList != null){
             friendListBuilder.addAllRequestFriends(pbRequestFriendList);
             friendListBuilder.setRequestNewCount(requestNewCount);
