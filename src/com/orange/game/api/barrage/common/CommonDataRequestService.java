@@ -5,6 +5,7 @@ import com.orange.game.api.barrage.service.barrage.GetFeedListService;
 import com.orange.game.api.barrage.service.barrage.ReplyFeedService;
 import com.orange.game.api.barrage.service.user.LoginUserService;
 import com.orange.game.api.barrage.service.user.RegisterUserService;
+import com.orange.game.api.barrage.service.user.SearchUserService;
 import com.orange.game.api.barrage.service.user.UpdateUserInfoService;
 import com.orange.game.api.barrage.service.user.invitecode.GetNewInviteCodeService;
 import com.orange.game.api.barrage.service.user.invitecode.VerifyInviteCodeService;
@@ -70,6 +71,9 @@ public class CommonDataRequestService extends CommonGameService {
 
             case MessageProtos.PBMessageType.MESSAGE_GET_USER_TAG_LIST_VALUE:
                 return GetUserTagListService.getInstance();
+
+            case MessageProtos.PBMessageType.MESSAGE_SEARCH_USER_VALUE:
+                return SearchUserService.getInstance();
         }
 
         log.warn("<getService> but unknown message type "+type+" received");
