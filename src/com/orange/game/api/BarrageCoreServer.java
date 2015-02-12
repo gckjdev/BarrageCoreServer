@@ -96,7 +96,7 @@ public class BarrageCoreServer extends CommonApiServer {
 			} 
 		});
 
-//        InviteCodeManager.getInstance().testMe();
+//        InviteCodeManager.getInstance().createAllCandidateCode();
 
 //        IndexMonitorManager.getInstance().resetOngoingIndex();
 
