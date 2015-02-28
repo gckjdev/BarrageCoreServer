@@ -68,6 +68,16 @@ public class GetUserFriendListService extends CommonBarrageService {
                 for (User user : requestFriendList){
                     if (user.getAddStatus() != UserProtos.FriendAddStatusType.REQ_WAIT_ACCEPT_VALUE){
                         removeSet.add(user);
+                        continue;
+                    }
+
+                    if (friendList != null) {
+                        for (User friend : friendList) {
+                            if (friend.getUserId().equalsIgnoreCase(user.getUserId())){
+                                // already friend, ignore
+                                removeSet.add(user);
+                            }
+                        }
                     }
                 }
 

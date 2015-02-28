@@ -45,7 +45,7 @@ public class GetFeedListService extends CommonBarrageService {
         int limit = req.getLimit();
 
         // get data
-        List<Feed> list = UserTimelineFeedManager.getInstance().getUserTimeline(userId, offsetFeedId, limit, true);
+        List<Feed> list = UserTimelineFeedManager.getInstance().getUserTimeline(userId, offsetFeedId, limit, false);
 
         // convert data to pb list
         List<BarrageProtos.PBFeed> pbFeedList = CommonData.listToPB(list, null);
