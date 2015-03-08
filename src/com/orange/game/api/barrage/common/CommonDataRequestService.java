@@ -1,12 +1,11 @@
 package com.orange.game.api.barrage.common;
 
-import com.orange.game.api.barrage.service.barrage.CreateFeedService;
-import com.orange.game.api.barrage.service.barrage.GetFeedListService;
-import com.orange.game.api.barrage.service.barrage.ReplyFeedService;
+import com.orange.game.api.barrage.service.barrage.*;
 import com.orange.game.api.barrage.service.user.LoginUserService;
 import com.orange.game.api.barrage.service.user.RegisterUserService;
 import com.orange.game.api.barrage.service.user.SearchUserService;
 import com.orange.game.api.barrage.service.user.UpdateUserInfoService;
+import com.orange.game.api.barrage.service.user.friend.DeleteFriendService;
 import com.orange.game.api.barrage.service.user.invitecode.*;
 import com.orange.game.api.barrage.service.user.friend.AddUserFriendService;
 import com.orange.game.api.barrage.service.user.friend.GetUserFriendListService;
@@ -82,6 +81,20 @@ public class CommonDataRequestService extends CommonGameService {
 
             case MessageProtos.PBMessageType.MESSAGE_UPDATE_INVITE_CODE_VALUE:
                 return UpdateInviteCodeService.getInstance();
+
+            case MessageProtos.PBMessageType.MESSAGE_DELETE_FEED_ACTION_VALUE:
+                return DeleteFeedActionService.getInstance();
+
+            case MessageProtos.PBMessageType.MESSAGE_DELETE_FEED_VALUE:
+                return DeleteFeedService.getInstance();
+
+            case MessageProtos.PBMessageType.MESSAGE_DELETE_FRIEND_VALUE:
+                return DeleteFriendService.getInstance();
+
+//            case MessageProtos.PBMessageType.MESSAGE_UPDATE_INVITE_CODE_VALUE:
+//                return UpdateInviteCodeService.getInstance();
+
+
         }
 
         log.warn("<getService> but unknown message type "+type+" received");

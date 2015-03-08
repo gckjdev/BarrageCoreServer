@@ -4,6 +4,7 @@ import com.orange.barrage.constant.BarrageConstants;
 import com.orange.barrage.model.user.FriendManager;
 import com.orange.barrage.model.user.FriendRequestManager;
 import com.orange.barrage.model.user.User;
+import com.orange.barrage.model.user.UserStatusUpdateComparator;
 import com.orange.game.api.barrage.common.CommonBarrageService;
 import com.orange.protocol.message.MessageProtos;
 import com.orange.protocol.message.UserProtos;
@@ -86,7 +87,9 @@ public class GetUserFriendListService extends CommonBarrageService {
                 }
             }
 
-
+            if (requestFriendList.size() > 0) {
+                Collections.sort(requestFriendList, new UserStatusUpdateComparator());
+            }
 
             requestNewCount = (int)FriendRequestManager.getInstance().getUnreadCount(userId);
             pbRequestFriendList = User.listToPB(requestFriendList, removeFields);
