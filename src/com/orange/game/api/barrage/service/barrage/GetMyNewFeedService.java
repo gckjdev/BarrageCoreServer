@@ -7,16 +7,17 @@ import com.orange.protocol.message.BarrageProtos;
 import com.orange.protocol.message.MessageProtos;
 
 /**
- * Created by pipi on 15/3/6.
+ * Created by pipi on 15/3/20.
  */
-public class DeleteFeedService extends CommonBarrageService {
-    private static DeleteFeedService ourInstance = new DeleteFeedService();
+public class GetMyNewFeedService extends CommonBarrageService {
 
-    public static DeleteFeedService getInstance() {
+    private static GetMyNewFeedService ourInstance = new GetMyNewFeedService();
+
+    public static GetMyNewFeedService getInstance() {
         return ourInstance;
     }
 
-    private DeleteFeedService() {
+    private GetMyNewFeedService() {
     }
 
     @Override
@@ -27,18 +28,17 @@ public class DeleteFeedService extends CommonBarrageService {
     @Override
     public void handleRequest(MessageProtos.PBDataRequest dataRequest, MessageProtos.PBDataResponse.Builder responseBuilder) {
 
-        MessageProtos.PBDeleteFeedRequest req = dataRequest.getDeleteFeedRequest();
-        String feedId = req.getFeedId();
+        MessageProtos.PBGetMyNewFeedListRequest req = dataRequest.getGetMyNewFeedListRequest();
+
         String userId = dataRequest.getUserId();
 
-        MessageProtos.PBDeleteFeedResponse.Builder rspBuilder = MessageProtos.PBDeleteFeedResponse.newBuilder();
+        MessageProtos.PBGetMyNewFeedListResponse.Builder rspBuilder = MessageProtos.PBGetMyNewFeedListResponse.newBuilder();
 
-        int resultCode = FeedService.getInstance().deleteFeed(feedId, rspBuilder, userId);
+        int resultCode = FeedService.getInstance().getUserNewFeed(userId, rspBuilder);
 
-        MessageProtos.PBDeleteFeedResponse rsp = rspBuilder.build();
+        MessageProtos.PBGetMyNewFeedListResponse rsp = rspBuilder.build();
 
         responseBuilder.setResultCode(resultCode);
-        responseBuilder.setDeleteFeedResponse(rsp);
+        responseBuilder.setGetMyNewFeedListResponse(rsp);
     }
-
 }

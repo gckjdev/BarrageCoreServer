@@ -1,6 +1,7 @@
 package com.orange.game.api.barrage.common;
 
 import com.orange.game.api.barrage.service.barrage.*;
+import com.orange.game.api.barrage.service.misc.FeedbackService;
 import com.orange.game.api.barrage.service.user.LoginUserService;
 import com.orange.game.api.barrage.service.user.RegisterUserService;
 import com.orange.game.api.barrage.service.user.SearchUserService;
@@ -91,9 +92,11 @@ public class CommonDataRequestService extends CommonGameService {
             case MessageProtos.PBMessageType.MESSAGE_DELETE_FRIEND_VALUE:
                 return DeleteFriendService.getInstance();
 
-//            case MessageProtos.PBMessageType.MESSAGE_UPDATE_INVITE_CODE_VALUE:
-//                return UpdateInviteCodeService.getInstance();
+            case MessageProtos.PBMessageType.MESSAGE_SEND_USER_FEEDBACK_VALUE:
+                return FeedbackService.getInstance();
 
+            case MessageProtos.PBMessageType.MESSAGE_GET_MY_NEW_FEED_LIST_VALUE:
+                return GetMyNewFeedService.getInstance();
 
         }
 

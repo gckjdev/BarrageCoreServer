@@ -6,6 +6,7 @@ import com.mongodb.util.JSON;
 import com.orange.barrage.model.feed.Feed;
 import com.orange.barrage.model.feed.FeedManager;
 import com.orange.barrage.model.feed.UserTimelineFeedManager;
+import com.orange.barrage.service.feed.FeedService;
 import com.orange.game.api.barrage.common.CommonBarrageService;
 import com.orange.protocol.message.BarrageProtos;
 import com.orange.protocol.message.MessageProtos;
@@ -40,7 +41,7 @@ public class ReplyFeedService extends CommonBarrageService {
 
         MessageProtos.PBReplyFeedResponse.Builder rspBuilder = MessageProtos.PBReplyFeedResponse.newBuilder();
 
-        int resultCode = FeedManager.getInstance().replyFeed(action, rspBuilder);
+        int resultCode = FeedService.getInstance().replyFeed(action, rspBuilder);
 
         MessageProtos.PBReplyFeedResponse rsp = rspBuilder.build();
 

@@ -1,9 +1,17 @@
 package com.orange.game.api.barrage.service.misc;
 
+import com.mongodb.DBObject;
+import com.orange.barrage.constant.BarrageConstants;
 import com.orange.barrage.model.feed.FeedManager;
+import com.orange.barrage.model.user.User;
 import com.orange.game.api.barrage.common.CommonBarrageService;
+import com.orange.game.model.dao.CommonData;
+import com.orange.game.model.service.DBService;
 import com.orange.protocol.message.BarrageProtos;
 import com.orange.protocol.message.MessageProtos;
+import com.orange.protocol.message.UserProtos;
+
+import java.util.Date;
 
 /**
  * Created by pipi on 15/3/6.
@@ -26,17 +34,17 @@ public class FeedbackService extends CommonBarrageService {
     @Override
     public void handleRequest(MessageProtos.PBDataRequest dataRequest, MessageProtos.PBDataResponse.Builder responseBuilder) {
 
-        MessageProtos.PBReplyFeedRequest req = dataRequest.getReplyFeedRequest();
-        BarrageProtos.PBFeedAction action = req.getAction();
+        MessageProtos.PBSendUserFeedbackRequest req = dataRequest.getSendUserFeedbackRequest();
 
-        MessageProtos.PBReplyFeedResponse.Builder rspBuilder = MessageProtos.PBReplyFeedResponse.newBuilder();
+        DBObject obj = CommonData.pbToDBObject(req, true, BarrageConstants.F_FEEDBACK_ID);
+        obj.put(BarrageConstants.F_CREATE_DATE, new Date());
 
-        int resultCode = FeedManager.getInstance().replyFeed(action, rspBuilder);
+        log.info("create feedback request = "+obj.toString());
+        DBService.getInstance().getMongoDBClient().insert(BarrageConstants.T_FEEDBACK, obj);
 
-        MessageProtos.PBReplyFeedResponse rsp = rspBuilder.build();
-
-        responseBuilder.setResultCode(resultCode);
-        responseBuilder.setReplyFeedResponse(rsp);
+        MessageProtos.PBSendUserFeedbackResponse rsp = MessageProtos.PBSendUserFeedbackResponse.newBuilder().build();
+        responseBuilder.setResultCode(0);
+        responseBuilder.setSendUserFeedbackResponse(rsp);
     }
 
 }
