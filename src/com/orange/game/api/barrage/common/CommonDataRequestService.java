@@ -98,6 +98,14 @@ public class CommonDataRequestService extends CommonGameService {
             case MessageProtos.PBMessageType.MESSAGE_GET_MY_NEW_FEED_LIST_VALUE:
                 return GetMyNewFeedService.getInstance();
 
+            case MessageProtos.PBMessageType.MESSAGE_GET_FEED_BY_ID_VALUE:
+                return GetFeedByIdService.getInstance();
+
+            case MessageProtos.PBMessageType.MESSAGE_READ_MY_NEW_FEED_VALUE:
+                return ReadMyNewFeedService.getInstance();
+
+            case MessageProtos.PBMessageType.MESSAGE_GET_USER_FEED_VALUE:
+                return GetUserFeedService.getInstance();
         }
 
         log.warn("<getService> but unknown message type "+type+" received");
@@ -172,10 +180,15 @@ public class CommonDataRequestService extends CommonGameService {
             responseBuilder.setRequestId(ErrorProtos.PBError.ERROR_NO_SERVICE_FOR_TYPE_VALUE);
             return;
         }
+        else{
+            log.info("process service "+service.getClass().getName());
+        }
 
         try {
 
             if (service.validateRequest(dataRequest, responseBuilder) == false){
+                log.warn("process service but validateRequest fails!");
+                resultCode = ErrorProtos.PBError.ERROR_READ_POST_DATA_VALUE;
                 return;
             }
 

@@ -12,6 +12,7 @@ import com.orange.common.service.BlackUserService;
 import com.orange.common.utils.DBObjectUtil;
 import com.orange.common.utils.DateUtil;
 import com.orange.common.utils.IntegerUtil;
+import com.orange.common.utils.StringUtil;
 import com.orange.game.api.service.GameServiceFactory;
 import com.orange.game.constants.DBConstants;
 import com.orange.game.model.common.IndexMonitorManager;
@@ -29,6 +30,9 @@ import com.orange.game.model.service.opus.OpusService;
 import com.orange.game.model.xiaoji.XiaojiFactory;
 import com.orange.game.traffic.server.ServerMonitor;
 import com.orange.network.game.protocol.model.TutorialProtos;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class BarrageCoreServer extends CommonApiServer {
 	
@@ -75,6 +79,8 @@ public class BarrageCoreServer extends CommonApiServer {
 	
     public static void main(String[] args) throws Exception{
 
+        StringUtil.testChinese();
+
         final BarrageCoreServer server = new BarrageCoreServer();
 
     	Runtime.getRuntime().addShutdownHook(new Thread() {
@@ -107,6 +113,8 @@ public class BarrageCoreServer extends CommonApiServer {
 
 		server.startServer();
     }
+
+
 
 }
 

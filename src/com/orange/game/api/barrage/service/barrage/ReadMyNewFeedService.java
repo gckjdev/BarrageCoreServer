@@ -1,5 +1,6 @@
 package com.orange.game.api.barrage.service.barrage;
 
+import com.orange.barrage.service.feed.FeedService;
 import com.orange.game.api.barrage.common.CommonBarrageService;
 import com.orange.protocol.message.MessageProtos;
 
@@ -24,5 +25,13 @@ public class ReadMyNewFeedService  extends CommonBarrageService {
     @Override
     public void handleRequest(MessageProtos.PBDataRequest dataRequest, MessageProtos.PBDataResponse.Builder responseBuilder) {
 
+        MessageProtos.PBReadMyNewFeedRequest req = dataRequest.getReadMyNewFeedRequest();
+
+        String feedId = req.getFeedId();
+        String userId = dataRequest.getUserId();
+
+        int resultCode = FeedService.getInstance().readUserNewFeed(userId, feedId);
+
+        responseBuilder.setResultCode(resultCode);
     }
 }
