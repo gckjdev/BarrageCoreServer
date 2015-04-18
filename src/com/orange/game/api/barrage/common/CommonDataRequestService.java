@@ -1,6 +1,8 @@
 package com.orange.game.api.barrage.common;
 
 import com.orange.game.api.barrage.service.barrage.*;
+import com.orange.game.api.barrage.service.chat.GetChatListService;
+import com.orange.game.api.barrage.service.chat.SendChatService;
 import com.orange.game.api.barrage.service.misc.FeedbackService;
 import com.orange.game.api.barrage.service.user.LoginUserService;
 import com.orange.game.api.barrage.service.user.RegisterUserService;
@@ -106,6 +108,14 @@ public class CommonDataRequestService extends CommonGameService {
 
             case MessageProtos.PBMessageType.MESSAGE_GET_USER_FEED_VALUE:
                 return GetUserFeedService.getInstance();
+
+            case MessageProtos.PBMessageType.MESSAGE_SEND_CHAT_VALUE:
+                return SendChatService.getInstance();
+
+            case MessageProtos.PBMessageType.MESSAGE_GET_CHAT_LIST_VALUE:
+                return GetChatListService.getInstance();
+
+
         }
 
         log.warn("<getService> but unknown message type "+type+" received");
