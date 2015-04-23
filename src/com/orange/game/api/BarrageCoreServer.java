@@ -1,6 +1,7 @@
 package com.orange.game.api;
 
 import com.mongodb.BasicDBObject;
+import com.orange.barrage.model.chat.OnlineAgentManager;
 import com.orange.barrage.model.user.InviteCodeManager;
 import com.orange.barrage.service.yun.qiniu.QiuNiuService;
 import com.orange.common.api.CommonApiServer;
@@ -79,11 +80,15 @@ public class BarrageCoreServer extends CommonApiServer {
 	
     public static void main(String[] args) throws Exception{
 
-        StringUtil.testChinese();
+
 
         final BarrageCoreServer server = new BarrageCoreServer();
 
-    	Runtime.getRuntime().addShutdownHook(new Thread() {
+        if (OnlineAgentManager.getInstance().getOnlineAgents().size() == 0) {
+            OnlineAgentManager.getInstance().initAgents();
+        }
+
+        Runtime.getRuntime().addShutdownHook(new Thread() {
 			public void run() {
 
                 try {
